@@ -15,7 +15,13 @@ body,
 }
 
 body {
+  /* Background subtil sur l'ensemble du site : image danseuse en filigrane sombre. */
   background-color: var(--color-bg);
+  background-image: linear-gradient(rgba(26, 14, 14, 0.92), rgba(26, 14, 14, 0.92)),
+    url("/assets/background.png");
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
   color: var(--color-text);
   font-family: var(--font-body);
   line-height: 1.6;
@@ -41,4 +47,13 @@ a:hover {
 button {
   font-family: inherit;
   cursor: pointer;
+}
+
+/* Responsive : on bascule les grilles à 1 colonne sur mobile. */
+@media (max-width: 768px) {
+  /* Les `style={{ gridTemplateColumns: "1fr 1fr" }}` inline ne sont pas surchargeables ici.
+     Les composants utilisent maintenant `repeat(auto-fit, minmax(...))` quand possible. */
+  body {
+    font-size: 0.95rem;
+  }
 }

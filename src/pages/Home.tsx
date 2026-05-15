@@ -1,47 +1,40 @@
 import { Link } from "react-router-dom";
+import Button from "../components/ui/Button.js";
 
-// Page d'accueil — hero avec slogan et CTA principaux.
+// Page d'accueil — hero plein ecran avec background danseuse (wireframe Frame 1).
 const Home = () => {
   return (
     <section
       style={{
-        minHeight: "70vh",
+        position: "relative",
+        minHeight: "calc(100vh - 70px)",
         display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
         alignItems: "center",
-        textAlign: "center",
-        padding: "2rem",
-        gap: "1.5rem",
+        justifyContent: "center",
+        padding: "var(--space-xl) var(--space-lg)",
+        // Overlay sombre + image en cover pour assurer la lisibilite du texte.
+        backgroundImage:
+          "linear-gradient(rgba(26, 14, 14, 0.65), rgba(26, 14, 14, 0.85)), url('/assets/background2.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
-      <h1 style={{ fontSize: "3rem" }}>Jasmine Teacher</h1>
-      <p style={{ maxWidth: "600px", color: "var(--color-text-muted)" }}>
-        Pas de cours accessibles près de chez vous ? Découvrez nos cours de danse orientale en
-        ligne, accessibles et adaptés à votre niveau.
-      </p>
-      <div style={{ display: "flex", gap: "1rem" }}>
-        <Link
-          to="/cours"
-          style={{
-            padding: "0.75rem 1.5rem",
-            background: "var(--color-accent)",
-            color: "var(--color-text)",
-            borderRadius: "var(--radius-md)",
-          }}
-        >
-          Découvrir les cours
-        </Link>
-        <Link
-          to="/inscription"
-          style={{
-            padding: "0.75rem 1.5rem",
-            border: "1px solid var(--color-gold)",
-            borderRadius: "var(--radius-md)",
-          }}
-        >
-          S'inscrire
-        </Link>
+      <div style={{ maxWidth: 800, textAlign: "center", display: "flex", flexDirection: "column", gap: "var(--space-lg)" }}>
+        <h1 style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", fontWeight: 500, letterSpacing: "0.05em" }}>
+          Jasmine Teacher
+        </h1>
+        <p style={{ fontSize: "1.25rem", color: "var(--color-text-muted)", lineHeight: 1.7 }}>
+          Pas de cours accessibles près de chez vous ?<br />
+          Découvrez nos cours de danse orientale en ligne, accessibles et adaptés à votre niveau.
+        </p>
+        <div style={{ display: "flex", gap: "var(--space-md)", justifyContent: "center", flexWrap: "wrap" }}>
+          <Link to="/cours">
+            <Button>Découvrir les cours</Button>
+          </Link>
+          <Link to="/inscription">
+            <Button variant="outline">S'inscrire</Button>
+          </Link>
+        </div>
       </div>
     </section>
   );
