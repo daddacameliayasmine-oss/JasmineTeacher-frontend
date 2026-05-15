@@ -1,6 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/layout/Footer.js";
 import Header from "./components/layout/Header.js";
+import About from "./pages/About.js";
+import Contact from "./pages/Contact.js";
+import Courses from "./pages/Courses.js";
 import Home from "./pages/Home.js";
 
 // Composant racine : layout commun (header + footer) + table des routes.
@@ -11,8 +14,10 @@ const App = () => {
       <main style={{ flex: 1 }}>
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* Les autres routes (cours, à propos, contact, connexion, inscription)
-              seront ajoutées dans des PR dédiées. */}
+          <Route path="/cours" element={<Courses />} />
+          <Route path="/a-propos" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          {/* Routes a venir : /connexion, /inscription, /mon-espace, /admin */}
         </Routes>
       </main>
       <Footer />
