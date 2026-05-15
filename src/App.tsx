@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute.js";
 import Footer from "./components/layout/Footer.js";
 import Header from "./components/layout/Header.js";
 import About from "./pages/About.js";
@@ -7,6 +8,7 @@ import Courses from "./pages/Courses.js";
 import Home from "./pages/Home.js";
 import Login from "./pages/Login.js";
 import Register from "./pages/Register.js";
+import StudentSpace from "./pages/StudentSpace.js";
 
 // Composant racine : layout commun (header + footer) + table des routes.
 const App = () => {
@@ -21,7 +23,15 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/connexion" element={<Login />} />
           <Route path="/inscription" element={<Register />} />
-          {/* Routes a venir : /mon-espace (eleve), /admin */}
+          <Route
+            path="/mon-espace"
+            element={
+              <ProtectedRoute>
+                <StudentSpace />
+              </ProtectedRoute>
+            }
+          />
+          {/* Route a venir : /admin */}
         </Routes>
       </main>
       <Footer />
