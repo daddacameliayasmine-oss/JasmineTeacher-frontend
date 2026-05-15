@@ -5,6 +5,8 @@ import About from "./pages/About.js";
 import Contact from "./pages/Contact.js";
 import Courses from "./pages/Courses.js";
 import Home from "./pages/Home.js";
+import Login from "./pages/Login.js";
+import Register from "./pages/Register.js";
 
 // Composant racine : layout commun (header + footer) + table des routes.
 const App = () => {
@@ -17,7 +19,9 @@ const App = () => {
           <Route path="/cours" element={<Courses />} />
           <Route path="/a-propos" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          {/* Routes a venir : /connexion, /inscription, /mon-espace, /admin */}
+          <Route path="/connexion" element={<Login />} />
+          <Route path="/inscription" element={<Register />} />
+          {/* Routes a venir : /mon-espace (eleve), /admin */}
         </Routes>
       </main>
       <Footer />

@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext.js";
 
-// En-tete affiche sur toutes les pages. Liens vers les sections publiques.
+// En-tete affiche sur toutes les pages.
+// Affiche "Connexion" pour les visiteurs et "Bonjour <prenom> · Deconnexion" pour les connectes.
 const Header = () => {
+  const { user, logout } = useAuth();
+
   return (
     <header
       style={{
@@ -15,10 +19,23 @@ const Header = () => {
       <Link to="/" style={{ fontFamily: "var(--font-heading)", fontSize: "1.5rem" }}>
         Jasmine Teacher
       </Link>
-      <nav style={{ display: "flex", gap: "1.5rem" }}>
+      <nav style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
         <Link to="/a-propos">À propos</Link>
         <Link to="/contact">Nous contacter</Link>
-        <Link to="/connexion">Connexion</Link>
+        {user ? (
+          <>
+            <span style={{ color: "var(--color-text-muted)" }}>Bonjour {user.firstname}</span>
+            <button
+              type="button"
+              onClick={logout}
+              style={{ background: "transparent", border: "none", color: "var(--color-gold)", cursor: "pointer" }}
+            >
+              Déconnexion
+            </button>
+          </>
+        ) : (
+          <Link to="/connexion">Connexion</Link>
+        )}
       </nav>
     </header>
   );
