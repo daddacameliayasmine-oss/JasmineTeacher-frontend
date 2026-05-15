@@ -2,8 +2,9 @@ import { useState } from "react";
 import AdminBookingsTab from "../components/admin/AdminBookingsTab.js";
 import AdminCoursesTab from "../components/admin/AdminCoursesTab.js";
 import AdminUsersTab from "../components/admin/AdminUsersTab.js";
+import AdminVideosTab from "../components/admin/AdminVideosTab.js";
 
-type Tab = "courses" | "users" | "bookings";
+type Tab = "courses" | "users" | "bookings" | "videos";
 
 // Style des onglets, avec etat actif sur le bouton selectionne.
 const tabButton = (active: boolean) => ({
@@ -15,7 +16,15 @@ const tabButton = (active: boolean) => ({
   cursor: "pointer",
 });
 
-// Page admin avec navigation par onglets (cours, eleves, reservations).
+// Definition des onglets : tableau pour eviter la duplication des boutons.
+const TABS: { key: Tab; label: string }[] = [
+  { key: "courses", label: "Cours" },
+  { key: "users", label: "Élèves" },
+  { key: "bookings", label: "Réservations" },
+  { key: "videos", label: "Vidéos" },
+];
+
+// Page admin avec navigation par onglets.
 const AdminDashboard = () => {
   const [tab, setTab] = useState<Tab>("courses");
 
@@ -23,21 +32,23 @@ const AdminDashboard = () => {
     <section style={{ maxWidth: 1200, margin: "var(--space-xl) auto", padding: "0 var(--space-lg)" }}>
       <h1 style={{ marginBottom: "var(--space-lg)" }}>Dashboard admin</h1>
 
-      <div style={{ display: "flex", gap: "var(--space-sm)", marginBottom: "var(--space-lg)" }}>
-        <button type="button" style={tabButton(tab === "courses")} onClick={() => setTab("courses")}>
-          Cours
-        </button>
-        <button type="button" style={tabButton(tab === "users")} onClick={() => setTab("users")}>
-          Élèves
-        </button>
-        <button type="button" style={tabButton(tab === "bookings")} onClick={() => setTab("bookings")}>
-          Réservations
-        </button>
+      <div style={{ display: "flex", gap: "var(--space-sm)", marginBottom: "var(--space-lg)", flexWrap: "wrap" }}>
+        {TABS.map((t) => (
+          <button
+            key={t.key}
+            type="button"
+            style={tabButton(tab === t.key)}
+            onClick={() => setTab(t.key)}
+          >
+            {t.label}
+          </button>
+        ))}
       </div>
 
       {tab === "courses" && <AdminCoursesTab />}
       {tab === "users" && <AdminUsersTab />}
       {tab === "bookings" && <AdminBookingsTab />}
+      {tab === "videos" && <AdminVideosTab />}
     </section>
   );
 };
