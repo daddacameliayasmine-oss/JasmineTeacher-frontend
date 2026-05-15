@@ -7,12 +7,27 @@ import Button from "../ui/Button.js";
 import Card from "../ui/Card.js";
 import CourseForm from "./CourseForm.js";
 
-// Onglet "Cours" du dashboard admin : creation + listing avec suppression.
+// Convertit un cours BDD en input pre-rempli pour le formulaire de modification.
+// L'input datetime-local attend le format "YYYY-MM-DDTHH:mm".
+const toInput = (c: Course): CourseInput => ({
+  title: c.title,
+  description: c.description,
+  type: c.type,
+  price: c.price,
+  capacity: c.capacity,
+  start_at: new Date(c.start_at).toISOString().slice(0, 16),
+  duration_minutes: c.duration_minutes,
+  visio_url: c.visio_url,
+});
+
+// Onglet "Cours" : creation, modification (toggle inline) et suppression.
 const AdminCoursesTab = () => {
   const { token } = useAuth();
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  // ID du cours en cours d'edition (null = pas d'edition active).
+  const [editingId, setEditingId] = useState<number | null>(null);
 
   const refresh = () => {
     setLoading(true);
@@ -28,6 +43,13 @@ const AdminCoursesTab = () => {
   const handleCreate = async (input: CourseInput) => {
     if (!token) return;
     await coursesService.createCourse(token, input);
+    refresh();
+  };
+
+  const handleUpdate = (id: number) => async (input: CourseInput) => {
+    if (!token) return;
+    await coursesService.updateCourse(token, id, input);
+    setEditingId(null);
     refresh();
   };
 
@@ -52,22 +74,34 @@ const AdminCoursesTab = () => {
             <div
               key={c.id}
               style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
                 padding: "var(--space-sm)",
                 borderBottom: "1px solid var(--color-border)",
               }}
             >
-              <div>
-                <strong>{c.title}</strong>
-                <p style={{ color: "var(--color-text-muted)", fontSize: "0.875rem" }}>
-                  {new Date(c.start_at).toLocaleString("fr-FR")} · {c.price}€
-                </p>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div>
+                  <strong>{c.title}</strong>
+                  <p style={{ color: "var(--color-text-muted)", fontSize: "0.875rem" }}>
+                    {new Date(c.start_at).toLocaleString("fr-FR")} · {c.price}€
+                  </p>
+                </div>
+                <div style={{ display: "flex", gap: "var(--space-sm)" }}>
+                  <Button
+                    variant="outline"
+                    onClick={() => setEditingId(editingId === c.id ? null : c.id)}
+                  >
+                    {editingId === c.id ? "Annuler" : "Modifier"}
+                  </Button>
+                  <Button variant="outline" onClick={() => handleDelete(c.id)}>
+                    Supprimer
+                  </Button>
+                </div>
               </div>
-              <Button variant="outline" onClick={() => handleDelete(c.id)}>
-                Supprimer
-              </Button>
+              {editingId === c.id && (
+                <div style={{ marginTop: "var(--space-md)" }}>
+                  <CourseForm initial={toInput(c)} onSubmit={handleUpdate(c.id)} />
+                </div>
+              )}
             </div>
           ))}
         </div>
