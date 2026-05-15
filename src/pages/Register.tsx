@@ -1,5 +1,5 @@
 import { type FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/ui/Button.js";
 import Card from "../components/ui/Card.js";
 import { useAuth } from "../context/AuthContext.js";
@@ -70,6 +70,9 @@ const Register = () => {
           <Button type="submit">{submitting ? "Inscription…" : "S'inscrire"}</Button>
         </form>
       </Card>
+      <p style={{ textAlign: "center", marginTop: "var(--space-md)", color: "var(--color-text-muted)" }}>
+        Déjà inscrit ? <Link to="/connexion">Connectez-vous</Link>
+      </p>
     </section>
   );
 };
