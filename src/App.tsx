@@ -3,6 +3,7 @@ import ProtectedRoute from "./components/ProtectedRoute.js";
 import Footer from "./components/layout/Footer.js";
 import Header from "./components/layout/Header.js";
 import About from "./pages/About.js";
+import AdminDashboard from "./pages/AdminDashboard.js";
 import Contact from "./pages/Contact.js";
 import Courses from "./pages/Courses.js";
 import Home from "./pages/Home.js";
@@ -31,7 +32,14 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          {/* Route a venir : /admin */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </main>
       <Footer />
