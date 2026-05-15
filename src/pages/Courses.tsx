@@ -2,24 +2,32 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/ui/Button.js";
 import Card from "../components/ui/Card.js";
+import VideoPlayer from "../components/ui/VideoPlayer.js";
 import { useAuth } from "../context/AuthContext.js";
 import { createBooking } from "../services/bookingsService.js";
 import { fetchCourses } from "../services/coursesService.js";
+import { fetchPublicVideos } from "../services/videosService.js";
 import type { Course } from "../types/Course.js";
+import type { Video } from "../types/Video.js";
 
-// Page "Decouvrir les cours" : tarifs + sessions a venir + bouton reserver.
+// Page "Decouvrir les cours" : tarifs + videos demo + sessions a venir + bouton reserver.
 const Courses = () => {
   const { user, token } = useAuth();
   const navigate = useNavigate();
   const [courses, setCourses] = useState<Course[]>([]);
+  const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   // Feedback par cours apres tentative de reservation.
   const [feedback, setFeedback] = useState<Record<number, string>>({});
 
   useEffect(() => {
-    fetchCourses()
-      .then(setCourses)
+    // Charge en parallele les cours et les videos publiques.
+    Promise.all([fetchCourses(), fetchPublicVideos()])
+      .then(([c, v]) => {
+        setCourses(c);
+        setVideos(v);
+      })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, []);
@@ -66,6 +74,29 @@ const Courses = () => {
           </p>
         </Card>
       </div>
+
+      {videos.length > 0 && (
+        <>
+          <h2 style={{ textAlign: "center", marginTop: "var(--space-xl)", fontSize: "2rem" }}>
+            Vidéos de démonstration
+          </h2>
+          <div
+            style={{
+              display: "grid",
+              gap: "var(--space-md)",
+              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+              marginTop: "var(--space-lg)",
+            }}
+          >
+            {videos.map((v) => (
+              <div key={v.id}>
+                <VideoPlayer url={v.url} title={v.title} />
+                <p style={{ marginTop: "var(--space-sm)", textAlign: "center" }}>{v.title}</p>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
 
       <h2 style={{ textAlign: "center", marginTop: "var(--space-xl)", fontSize: "2rem" }}>
         Prochaines sessions
