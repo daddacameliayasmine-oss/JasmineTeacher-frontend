@@ -1,18 +1,43 @@
 import { type FormEvent, useState } from "react";
 import Button from "../components/ui/Button.js";
 import Card from "../components/ui/Card.js";
+import { useAuth } from "../context/AuthContext.js";
+import { sendContactMessage } from "../services/contactService.js";
 
-// Page "Nous contacter" : coordonnees + formulaire (Frame 4).
-// Le formulaire est local pour l'instant (pas d'endpoint /contact cote API).
+// Style commun aux champs du formulaire.
+const fieldStyle = {
+  padding: "var(--space-md)",
+  borderRadius: "var(--radius-md)",
+  border: "1px solid var(--color-border)",
+  background: "rgba(255, 255, 255, 0.05)",
+  color: "var(--color-text)",
+  fontFamily: "inherit",
+  resize: "vertical" as const,
+};
+
+// Page "Nous contacter" : coordonnees + formulaire branche sur POST /api/contact.
 const Contact = () => {
+  const { user } = useAuth();
+  // Si user connecte, on pre-remplit l'email avec son adresse.
+  const [email, setEmail] = useState(user?.email ?? "");
   const [message, setMessage] = useState("");
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // TODO Sprint suivant : appel a POST /api/contact une fois la route creee cote back.
-    setSent(true);
-    setMessage("");
+    setError(null);
+    setSubmitting(true);
+    try {
+      await sendContactMessage(email || null, message);
+      setSent(true);
+      setMessage("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erreur");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -35,23 +60,24 @@ const Contact = () => {
 
       <Card title="Posez votre question">
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "var(--space-md)" }}>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Votre email (optionnel)"
+            style={fieldStyle}
+          />
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Ecrivez votre demande…"
             rows={6}
             required
-            style={{
-              padding: "var(--space-md)",
-              borderRadius: "var(--radius-md)",
-              border: "1px solid var(--color-border)",
-              background: "rgba(255, 255, 255, 0.05)",
-              color: "var(--color-text)",
-              fontFamily: "inherit",
-              resize: "vertical",
-            }}
+            minLength={5}
+            style={fieldStyle}
           />
-          <Button type="submit">Envoyer</Button>
+          {error && <p style={{ color: "salmon" }}>{error}</p>}
+          <Button type="submit">{submitting ? "Envoi…" : "Envoyer"}</Button>
           {sent && <p style={{ color: "var(--color-gold)" }}>Message bien reçu, merci !</p>}
         </form>
       </Card>
