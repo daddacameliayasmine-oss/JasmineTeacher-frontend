@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+# Commit-msg : impose le format Conventional Commits.
+
+MSG_FILE=$1
+MSG=$(head -n1 "$MSG_FILE")
+
+PATTERN='^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\([a-z0-9_-]+\))?: .{10,}$'
+
+if ! echo "$MSG" | grep -Eq "$PATTERN"; then
+  echo "Format attendu : type(scope): description (min 10 caracteres)"
+  echo "Exemple : feat(home): ajout de la page d accueil"
+  exit 1
+fi
