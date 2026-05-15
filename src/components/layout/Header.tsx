@@ -26,6 +26,7 @@ const Header = () => {
         {user ? (
           <>
             <Link to="/mon-espace">Mon espace</Link>
+            {user.role === "admin" && <Link to="/admin">Admin</Link>}
             <span style={{ color: "var(--color-text-muted)" }}>Bonjour {user.firstname}</span>
             <button
               type="button"
