@@ -1,0 +1,79 @@
+import { useEffect, useState } from "react";
+import { useAuth } from "../../context/AuthContext.js";
+import type { CourseInput } from "../../services/coursesService.js";
+import * as coursesService from "../../services/coursesService.js";
+import type { Course } from "../../types/Course.js";
+import Button from "../ui/Button.js";
+import Card from "../ui/Card.js";
+import CourseForm from "./CourseForm.js";
+
+// Onglet "Cours" du dashboard admin : creation + listing avec suppression.
+const AdminCoursesTab = () => {
+  const { token } = useAuth();
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const refresh = () => {
+    setLoading(true);
+    coursesService
+      .fetchCourses()
+      .then(setCourses)
+      .catch((e) => setError(e.message))
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(refresh, []);
+
+  const handleCreate = async (input: CourseInput) => {
+    if (!token) return;
+    await coursesService.createCourse(token, input);
+    refresh();
+  };
+
+  const handleDelete = async (id: number) => {
+    if (!token) return;
+    await coursesService.deleteCourse(token, id);
+    refresh();
+  };
+
+  return (
+    <div style={{ display: "grid", gap: "var(--space-lg)", gridTemplateColumns: "1fr 1fr" }}>
+      <Card title="Nouveau cours">
+        <CourseForm onSubmit={handleCreate} />
+      </Card>
+
+      <Card title="Cours existants">
+        {loading && <p>Chargement…</p>}
+        {error && <p style={{ color: "salmon" }}>{error}</p>}
+        {!loading && courses.length === 0 && <p>Aucun cours.</p>}
+        <div style={{ display: "grid", gap: "var(--space-sm)" }}>
+          {courses.map((c) => (
+            <div
+              key={c.id}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "var(--space-sm)",
+                borderBottom: "1px solid var(--color-border)",
+              }}
+            >
+              <div>
+                <strong>{c.title}</strong>
+                <p style={{ color: "var(--color-text-muted)", fontSize: "0.875rem" }}>
+                  {new Date(c.start_at).toLocaleString("fr-FR")} · {c.price}€
+                </p>
+              </div>
+              <Button variant="outline" onClick={() => handleDelete(c.id)}>
+                Supprimer
+              </Button>
+            </div>
+          ))}
+        </div>
+      </Card>
+    </div>
+  );
+};
+
+export default AdminCoursesTab;
