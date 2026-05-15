@@ -20,10 +20,12 @@ const Header = () => {
         Jasmine Teacher
       </Link>
       <nav style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
+        <Link to="/cours">Cours</Link>
         <Link to="/a-propos">À propos</Link>
         <Link to="/contact">Nous contacter</Link>
         {user ? (
           <>
+            <Link to="/mon-espace">Mon espace</Link>
             <span style={{ color: "var(--color-text-muted)" }}>Bonjour {user.firstname}</span>
             <button
               type="button"
