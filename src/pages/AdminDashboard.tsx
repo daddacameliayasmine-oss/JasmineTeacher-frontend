@@ -1,10 +1,11 @@
 import { useState } from "react";
 import AdminBookingsTab from "../components/admin/AdminBookingsTab.js";
 import AdminCoursesTab from "../components/admin/AdminCoursesTab.js";
+import AdminStatsTab from "../components/admin/AdminStatsTab.js";
 import AdminUsersTab from "../components/admin/AdminUsersTab.js";
 import AdminVideosTab from "../components/admin/AdminVideosTab.js";
 
-type Tab = "courses" | "users" | "bookings" | "videos";
+type Tab = "stats" | "courses" | "users" | "bookings" | "videos";
 
 // Style des onglets, avec etat actif sur le bouton selectionne.
 const tabButton = (active: boolean) => ({
@@ -18,6 +19,7 @@ const tabButton = (active: boolean) => ({
 
 // Definition des onglets : tableau pour eviter la duplication des boutons.
 const TABS: { key: Tab; label: string }[] = [
+  { key: "stats", label: "Statistiques" },
   { key: "courses", label: "Cours" },
   { key: "users", label: "Élèves" },
   { key: "bookings", label: "Réservations" },
@@ -26,7 +28,8 @@ const TABS: { key: Tab; label: string }[] = [
 
 // Page admin avec navigation par onglets.
 const AdminDashboard = () => {
-  const [tab, setTab] = useState<Tab>("courses");
+  // Stats est l'onglet d'accueil : Jasmine voit d'abord un apercu chiffre.
+  const [tab, setTab] = useState<Tab>("stats");
 
   return (
     <section style={{ maxWidth: 1200, margin: "var(--space-xl) auto", padding: "0 var(--space-lg)" }}>
@@ -45,6 +48,7 @@ const AdminDashboard = () => {
         ))}
       </div>
 
+      {tab === "stats" && <AdminStatsTab />}
       {tab === "courses" && <AdminCoursesTab />}
       {tab === "users" && <AdminUsersTab />}
       {tab === "bookings" && <AdminBookingsTab />}
