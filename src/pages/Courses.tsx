@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "../components/ui/Button.js";
 import Card from "../components/ui/Card.js";
+import { useAuth } from "../context/AuthContext.js";
+import { createBooking } from "../services/bookingsService.js";
 import { fetchCourses } from "../services/coursesService.js";
 import type { Course } from "../types/Course.js";
 
-// Page "Decouvrir les cours" : tarifs (statiques) + cours dispo (API) + videos demo.
+// Page "Decouvrir les cours" : tarifs + sessions a venir + bouton reserver.
 const Courses = () => {
-  // State des cours charges depuis l'API.
+  const { user, token } = useAuth();
+  const navigate = useNavigate();
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  // Feedback par cours apres tentative de reservation.
+  const [feedback, setFeedback] = useState<Record<number, string>>({});
 
   useEffect(() => {
     fetchCourses()
@@ -16,6 +23,22 @@ const Courses = () => {
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, []);
+
+  const handleBook = async (courseId: number) => {
+    if (!user || !token) {
+      navigate("/connexion");
+      return;
+    }
+    try {
+      await createBooking(token, courseId);
+      setFeedback((prev) => ({ ...prev, [courseId]: "Réservation créée — voir Mon espace" }));
+    } catch (err) {
+      setFeedback((prev) => ({
+        ...prev,
+        [courseId]: err instanceof Error ? err.message : "Erreur",
+      }));
+    }
+  };
 
   return (
     <section style={{ padding: "var(--space-xl) var(--space-lg)", maxWidth: 1100, margin: "0 auto" }}>
@@ -57,11 +80,21 @@ const Courses = () => {
       <div style={{ display: "grid", gap: "var(--space-md)", marginTop: "var(--space-lg)" }}>
         {courses.map((course) => (
           <Card key={course.id}>
-            <h3>{course.title}</h3>
-            <p style={{ color: "var(--color-text-muted)" }}>
-              {new Date(course.start_at).toLocaleString("fr-FR")} · {course.duration_minutes} min ·{" "}
-              {course.price}€
-            </p>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div>
+                <h3>{course.title}</h3>
+                <p style={{ color: "var(--color-text-muted)" }}>
+                  {new Date(course.start_at).toLocaleString("fr-FR")} · {course.duration_minutes} min ·{" "}
+                  {course.price}€
+                </p>
+                {feedback[course.id] && (
+                  <p style={{ color: "var(--color-gold)", marginTop: "var(--space-sm)" }}>
+                    {feedback[course.id]}
+                  </p>
+                )}
+              </div>
+              <Button onClick={() => handleBook(course.id)}>Réserver</Button>
+            </div>
           </Card>
         ))}
       </div>
