@@ -54,7 +54,13 @@ const Courses = () => {
         Découvrir les cours
       </h1>
 
-      <div style={{ display: "grid", gap: "var(--space-lg)", gridTemplateColumns: "1fr 1fr" }}>
+      <div
+        style={{
+          display: "grid",
+          gap: "var(--space-lg)",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+        }}
+      >
         <Card title="Tarifs">
           <ul style={{ listStyle: "none", lineHeight: 2 }}>
             <li>Cours collectifs : 20€ / heure</li>

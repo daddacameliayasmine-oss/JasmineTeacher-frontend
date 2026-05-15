@@ -14,12 +14,16 @@ const Header = () => {
         alignItems: "center",
         padding: "1rem 2rem",
         borderBottom: "1px solid var(--color-border)",
+        background: "rgba(26, 14, 14, 0.9)",
+        backdropFilter: "blur(8px)",
+        flexWrap: "wrap",
+        gap: "var(--space-md)",
       }}
     >
       <Link to="/" style={{ fontFamily: "var(--font-heading)", fontSize: "1.5rem" }}>
         Jasmine Teacher
       </Link>
-      <nav style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
+      <nav style={{ display: "flex", gap: "1.5rem", alignItems: "center", flexWrap: "wrap" }}>
         <Link to="/cours">Cours</Link>
         <Link to="/a-propos">À propos</Link>
         <Link to="/contact">Nous contacter</Link>

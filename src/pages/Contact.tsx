@@ -23,7 +23,7 @@ const Contact = () => {
         margin: "0 auto",
         display: "grid",
         gap: "var(--space-lg)",
-        gridTemplateColumns: "1fr 1fr",
+        gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
       }}
     >
       <div>
