@@ -19,15 +19,36 @@ const Home = () => {
         backgroundPosition: "center",
       }}
     >
-      <div style={{ maxWidth: 800, textAlign: "center", display: "flex", flexDirection: "column", gap: "var(--space-lg)" }}>
-        <h1 style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", fontWeight: 500, letterSpacing: "0.05em" }}>
+      <div
+        style={{
+          maxWidth: 800,
+          textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          gap: "var(--space-lg)",
+        }}
+      >
+        <h1
+          style={{
+            fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+            fontWeight: 500,
+            letterSpacing: "0.05em",
+          }}
+        >
           Jasmine Teacher
         </h1>
         <p style={{ fontSize: "1.25rem", color: "var(--color-text-muted)", lineHeight: 1.7 }}>
           Pas de cours accessibles près de chez vous ?<br />
           Découvrez nos cours de danse orientale en ligne, accessibles et adaptés à votre niveau.
         </p>
-        <div style={{ display: "flex", gap: "var(--space-md)", justifyContent: "center", flexWrap: "wrap" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "var(--space-md)",
+            justifyContent: "center",
+            flexWrap: "wrap",
+          }}
+        >
           <Link to="/cours">
             <Button>Découvrir les cours</Button>
           </Link>
