@@ -49,7 +49,9 @@ const Courses = () => {
   };
 
   return (
-    <section style={{ padding: "var(--space-xl) var(--space-lg)", maxWidth: 1100, margin: "0 auto" }}>
+    <section
+      style={{ padding: "var(--space-xl) var(--space-lg)", maxWidth: 1100, margin: "0 auto" }}
+    >
       <h1 style={{ textAlign: "center", fontSize: "2.5rem", marginBottom: "var(--space-xl)" }}>
         Découvrir les cours
       </h1>
@@ -71,8 +73,8 @@ const Courses = () => {
 
         <Card title="Cours">
           <p>
-            Des cours de danse orientale en ligne, accessibles à tous les niveaux. Les
-            réservations doivent être effectuées au minimum une semaine à l'avance.
+            Des cours de danse orientale en ligne, accessibles à tous les niveaux. Les réservations
+            doivent être effectuées au minimum une semaine à l'avance.
           </p>
           <p style={{ marginTop: "var(--space-md)" }}>
             Les cours collectifs sont limités à <strong>10 personnes</strong>. Les cours enfants
@@ -121,8 +123,8 @@ const Courses = () => {
               <div>
                 <h3>{course.title}</h3>
                 <p style={{ color: "var(--color-text-muted)" }}>
-                  {new Date(course.start_at).toLocaleString("fr-FR")} · {course.duration_minutes} min ·{" "}
-                  {course.price}€
+                  {new Date(course.start_at).toLocaleString("fr-FR")} · {course.duration_minutes}{" "}
+                  min · {course.price}€
                 </p>
                 {feedback[course.id] && (
                   <p style={{ color: "var(--color-gold)", marginTop: "var(--space-sm)" }}>

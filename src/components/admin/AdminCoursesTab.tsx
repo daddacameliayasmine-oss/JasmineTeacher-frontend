@@ -78,7 +78,9 @@ const AdminCoursesTab = () => {
                 borderBottom: "1px solid var(--color-border)",
               }}
             >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div
+                style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
+              >
                 <div>
                   <strong>{c.title}</strong>
                   <p style={{ color: "var(--color-text-muted)", fontSize: "0.875rem" }}>

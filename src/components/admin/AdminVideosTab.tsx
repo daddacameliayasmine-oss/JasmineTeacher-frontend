@@ -26,7 +26,10 @@ const AdminVideosTab = () => {
 
   const refresh = () => {
     if (!token) return;
-    videosService.fetchAllVideos(token).then(setVideos).catch((e) => setError(e.message));
+    videosService
+      .fetchAllVideos(token)
+      .then(setVideos)
+      .catch((e) => setError(e.message));
   };
 
   useEffect(refresh, [token]);
@@ -55,10 +58,26 @@ const AdminVideosTab = () => {
     <div style={{ display: "grid", gap: "var(--space-lg)", gridTemplateColumns: "1fr 1fr" }}>
       <Card title="Ajouter une vidéo">
         <form onSubmit={handleAdd} style={{ display: "grid", gap: "var(--space-md)" }}>
-          <input style={inputStyle} placeholder="Titre" value={title} onChange={(e) => setTitle(e.target.value)} required />
-          <input style={inputStyle} placeholder="URL (YouTube, MP4…)" value={url} onChange={(e) => setUrl(e.target.value)} required />
+          <input
+            style={inputStyle}
+            placeholder="Titre"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+          <input
+            style={inputStyle}
+            placeholder="URL (YouTube, MP4…)"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            required
+          />
           <label style={{ display: "flex", gap: "var(--space-sm)", alignItems: "center" }}>
-            <input type="checkbox" checked={isPublic} onChange={(e) => setIsPublic(e.target.checked)} />
+            <input
+              type="checkbox"
+              checked={isPublic}
+              onChange={(e) => setIsPublic(e.target.checked)}
+            />
             Visible par les visiteurs (démo publique)
           </label>
           {error && <p style={{ color: "salmon" }}>{error}</p>}

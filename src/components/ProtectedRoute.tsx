@@ -14,7 +14,8 @@ type Props = {
 const ProtectedRoute = ({ children, role }: Props) => {
   const { user, loading } = useAuth();
 
-  if (loading) return <p style={{ textAlign: "center", padding: "var(--space-xl)" }}>Chargement…</p>;
+  if (loading)
+    return <p style={{ textAlign: "center", padding: "var(--space-xl)" }}>Chargement…</p>;
   if (!user) return <Navigate to="/connexion" replace />;
   if (role && user.role !== role) return <Navigate to="/" replace />;
 

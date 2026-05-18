@@ -19,11 +19,7 @@ export const createCourse = (token: string, input: CourseInput): Promise<Course>
   return apiFetch<Course>("/courses", { method: "POST", body: input, token });
 };
 
-export const updateCourse = (
-  token: string,
-  id: number,
-  input: CourseInput,
-): Promise<Course> => {
+export const updateCourse = (token: string, id: number, input: CourseInput): Promise<Course> => {
   return apiFetch<Course>(`/courses/${id}`, { method: "PUT", body: input, token });
 };
 

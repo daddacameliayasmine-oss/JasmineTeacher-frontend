@@ -35,7 +35,12 @@ const Header = () => {
             <button
               type="button"
               onClick={logout}
-              style={{ background: "transparent", border: "none", color: "var(--color-gold)", cursor: "pointer" }}
+              style={{
+                background: "transparent",
+                border: "none",
+                color: "var(--color-gold)",
+                cursor: "pointer",
+              }}
             >
               Déconnexion
             </button>

@@ -1,9 +1,5 @@
 // Type partage cote front (correspond au schema BDD cote back).
-export type CourseType =
-  | "collectif"
-  | "individuel"
-  | "enfant_collectif"
-  | "enfant_individuel";
+export type CourseType = "collectif" | "individuel" | "enfant_collectif" | "enfant_individuel";
 
 export type Course = {
   id: number;

@@ -59,7 +59,10 @@ const Contact = () => {
       </div>
 
       <Card title="Posez votre question">
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "var(--space-md)" }}>
+        <form
+          onSubmit={handleSubmit}
+          style={{ display: "flex", flexDirection: "column", gap: "var(--space-md)" }}
+        >
           <input
             type="email"
             value={email}

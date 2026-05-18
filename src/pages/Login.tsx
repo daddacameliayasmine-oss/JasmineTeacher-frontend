@@ -39,10 +39,15 @@ const Login = () => {
   };
 
   return (
-    <section style={{ maxWidth: 500, margin: "var(--space-xl) auto", padding: "0 var(--space-lg)" }}>
+    <section
+      style={{ maxWidth: 500, margin: "var(--space-xl) auto", padding: "0 var(--space-lg)" }}
+    >
       <h1 style={{ textAlign: "center", marginBottom: "var(--space-lg)" }}>Connectez-vous</h1>
       <Card>
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "var(--space-md)" }}>
+        <form
+          onSubmit={handleSubmit}
+          style={{ display: "flex", flexDirection: "column", gap: "var(--space-md)" }}
+        >
           <input
             type="email"
             value={email}
@@ -63,7 +68,13 @@ const Login = () => {
           <Button type="submit">{submitting ? "Connexion…" : "Connexion"}</Button>
         </form>
       </Card>
-      <p style={{ textAlign: "center", marginTop: "var(--space-md)", color: "var(--color-text-muted)" }}>
+      <p
+        style={{
+          textAlign: "center",
+          marginTop: "var(--space-md)",
+          color: "var(--color-text-muted)",
+        }}
+      >
         Pas encore de compte ? <Link to="/inscription">Inscrivez-vous</Link>
       </p>
     </section>
