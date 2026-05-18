@@ -28,11 +28,23 @@ const AdminStatsTab = () => {
 
   useEffect(() => {
     if (!token) return;
-    fetchAdminStats(token).then(setStats).catch((e) => setError(e.message));
+    fetchAdminStats(token)
+      .then(setStats)
+      .catch((e) => setError(e.message));
   }, [token]);
 
-  if (error) return <Card><p style={{ color: "salmon" }}>{error}</p></Card>;
-  if (!stats) return <Card><p>Chargement…</p></Card>;
+  if (error)
+    return (
+      <Card>
+        <p style={{ color: "salmon" }}>{error}</p>
+      </Card>
+    );
+  if (!stats)
+    return (
+      <Card>
+        <p>Chargement…</p>
+      </Card>
+    );
 
   return (
     <div

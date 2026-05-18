@@ -58,7 +58,9 @@ const StudentSpace = () => {
   };
 
   return (
-    <section style={{ maxWidth: 900, margin: "var(--space-xl) auto", padding: "0 var(--space-lg)" }}>
+    <section
+      style={{ maxWidth: 900, margin: "var(--space-xl) auto", padding: "0 var(--space-lg)" }}
+    >
       <h1 style={{ marginBottom: "var(--space-md)" }}>Bonjour {user?.firstname}</h1>
       <p style={{ color: "var(--color-text-muted)", marginBottom: "var(--space-xl)" }}>
         Retrouvez ici vos réservations à venir, votre historique et vos liens de visio.

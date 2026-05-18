@@ -32,10 +32,19 @@ const AdminDashboard = () => {
   const [tab, setTab] = useState<Tab>("stats");
 
   return (
-    <section style={{ maxWidth: 1200, margin: "var(--space-xl) auto", padding: "0 var(--space-lg)" }}>
+    <section
+      style={{ maxWidth: 1200, margin: "var(--space-xl) auto", padding: "0 var(--space-lg)" }}
+    >
       <h1 style={{ marginBottom: "var(--space-lg)" }}>Dashboard admin</h1>
 
-      <div style={{ display: "flex", gap: "var(--space-sm)", marginBottom: "var(--space-lg)", flexWrap: "wrap" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: "var(--space-sm)",
+          marginBottom: "var(--space-lg)",
+          flexWrap: "wrap",
+        }}
+      >
         {TABS.map((t) => (
           <button
             key={t.key}
