@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# Pre-commit : lint + limite 150 lignes par commit (memes regles que le backend).
+
+npm run lint || {
+  echo "Lint en erreur — corrige avant de committer (npm run lint:fix)."
+  exit 1
+}
+
+CHANGED=$(git diff --cached --numstat \
+  | grep -v "package-lock.json" \
+  | grep -v "\.svg$" \
+  | awk '{ added += $1; removed += $2 } END { print added + removed }')
+
+if [ "${CHANGED:-0}" -gt 150 ]; then
+  echo "Commit trop volumineux ($CHANGED lignes > 150 max)."
+  exit 1
+fi

@@ -1,0 +1,62 @@
+/* Reset minimal + styles globaux. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  min-height: 100vh;
+}
+
+body {
+  /* Background subtil sur l'ensemble du site : image danseuse en filigrane sombre. */
+  background-color: var(--color-bg);
+  background-image: linear-gradient(rgba(26, 14, 14, 0.92), rgba(26, 14, 14, 0.92)),
+    url("/assets/background.png");
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+a {
+  color: var(--color-gold);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-text);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Responsive : on bascule les grilles à 1 colonne sur mobile. */
+@media (max-width: 768px) {
+  /* Les `style={{ gridTemplateColumns: "1fr 1fr" }}` inline ne sont pas surchargeables ici.
+     Les composants utilisent maintenant `repeat(auto-fit, minmax(...))` quand possible. */
+  body {
+    font-size: 0.95rem;
+  }
+}
