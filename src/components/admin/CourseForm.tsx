@@ -37,7 +37,8 @@ const CourseForm = ({ initial, onSubmit }: Props) => {
   const [submitting, setSubmitting] = useState(false);
 
   // Helper qui retourne un updater immuable pour un champ donne.
-  const update = <K extends keyof CourseInput>(field: K) =>
+  const update =
+    <K extends keyof CourseInput>(field: K) =>
     (value: CourseInput[K]) =>
       setForm((prev) => ({ ...prev, [field]: value }));
 
@@ -57,19 +58,70 @@ const CourseForm = ({ initial, onSubmit }: Props) => {
 
   return (
     <form onSubmit={handleSubmit} style={{ display: "grid", gap: "var(--space-md)" }}>
-      <input style={inputStyle} placeholder="Titre" value={form.title} onChange={(e) => update("title")(e.target.value)} required />
-      <textarea style={inputStyle} placeholder="Description" rows={3} value={form.description ?? ""} onChange={(e) => update("description")(e.target.value)} />
-      <select style={inputStyle} value={form.type} onChange={(e) => update("type")(e.target.value as CourseType)}>
+      <input
+        style={inputStyle}
+        placeholder="Titre"
+        value={form.title}
+        onChange={(e) => update("title")(e.target.value)}
+        required
+      />
+      <textarea
+        style={inputStyle}
+        placeholder="Description"
+        rows={3}
+        value={form.description ?? ""}
+        onChange={(e) => update("description")(e.target.value)}
+      />
+      <select
+        style={inputStyle}
+        value={form.type}
+        onChange={(e) => update("type")(e.target.value as CourseType)}
+      >
         <option value="collectif">Collectif (20€/h)</option>
         <option value="individuel">Individuel (40€/h)</option>
         <option value="enfant_collectif">Enfant collectif (10€/h)</option>
         <option value="enfant_individuel">Enfant individuel (20€/h)</option>
       </select>
-      <input style={inputStyle} type="number" placeholder="Prix" value={form.price} onChange={(e) => update("price")(Number(e.target.value))} required min={0} />
-      <input style={inputStyle} type="number" placeholder="Capacité" value={form.capacity} onChange={(e) => update("capacity")(Number(e.target.value))} required min={1} />
-      <input style={inputStyle} type="datetime-local" value={form.start_at} onChange={(e) => update("start_at")(e.target.value)} required />
-      <input style={inputStyle} type="number" placeholder="Durée (min)" value={form.duration_minutes} onChange={(e) => update("duration_minutes")(Number(e.target.value))} required min={15} />
-      <input style={inputStyle} placeholder="URL visio (optionnel)" value={form.visio_url ?? ""} onChange={(e) => update("visio_url")(e.target.value)} />
+      <input
+        style={inputStyle}
+        type="number"
+        placeholder="Prix"
+        value={form.price}
+        onChange={(e) => update("price")(Number(e.target.value))}
+        required
+        min={0}
+      />
+      <input
+        style={inputStyle}
+        type="number"
+        placeholder="Capacité"
+        value={form.capacity}
+        onChange={(e) => update("capacity")(Number(e.target.value))}
+        required
+        min={1}
+      />
+      <input
+        style={inputStyle}
+        type="datetime-local"
+        value={form.start_at}
+        onChange={(e) => update("start_at")(e.target.value)}
+        required
+      />
+      <input
+        style={inputStyle}
+        type="number"
+        placeholder="Durée (min)"
+        value={form.duration_minutes}
+        onChange={(e) => update("duration_minutes")(Number(e.target.value))}
+        required
+        min={15}
+      />
+      <input
+        style={inputStyle}
+        placeholder="URL visio (optionnel)"
+        value={form.visio_url ?? ""}
+        onChange={(e) => update("visio_url")(e.target.value)}
+      />
       {error && <p style={{ color: "salmon" }}>{error}</p>}
       <Button type="submit">{submitting ? "Envoi…" : "Enregistrer"}</Button>
     </form>
