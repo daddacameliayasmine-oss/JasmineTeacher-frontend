@@ -32,11 +32,7 @@ const variantStyle: Record<NonNullable<ButtonProps["variant"]>, CSSProperties> =
 
 const Button = ({ children, variant = "primary", onClick, type = "button" }: ButtonProps) => {
   return (
-    <button
-      type={type}
-      onClick={onClick}
-      style={{ ...baseStyle, ...variantStyle[variant] }}
-    >
+    <button type={type} onClick={onClick} style={{ ...baseStyle, ...variantStyle[variant] }}>
       {children}
     </button>
   );

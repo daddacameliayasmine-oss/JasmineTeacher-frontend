@@ -38,10 +38,14 @@ const AdminUsersTab = () => {
         <tbody>
           {users.map((u) => (
             <tr key={u.id} style={{ borderBottom: "1px solid var(--color-border)" }}>
-              <td style={{ padding: "var(--space-sm)" }}>{u.firstname} {u.lastname}</td>
+              <td style={{ padding: "var(--space-sm)" }}>
+                {u.firstname} {u.lastname}
+              </td>
               <td style={{ padding: "var(--space-sm)" }}>{u.email}</td>
               <td style={{ padding: "var(--space-sm)" }}>{u.role}</td>
-              <td style={{ padding: "var(--space-sm)" }}>{new Date(u.created_at).toLocaleDateString("fr-FR")}</td>
+              <td style={{ padding: "var(--space-sm)" }}>
+                {new Date(u.created_at).toLocaleDateString("fr-FR")}
+              </td>
             </tr>
           ))}
         </tbody>
