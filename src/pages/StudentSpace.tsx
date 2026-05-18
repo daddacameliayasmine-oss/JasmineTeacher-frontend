@@ -3,7 +3,7 @@ import Button from "../components/ui/Button.js";
 import Card from "../components/ui/Card.js";
 import { useAuth } from "../context/AuthContext.js";
 import { cancelBooking, fetchMyBookings } from "../services/bookingsService.js";
-import { payBooking } from "../services/paymentsService.js";
+import { createCheckoutSession, payBooking } from "../services/paymentsService.js";
 import type { BookingWithCourse } from "../types/Booking.js";
 
 // Couleurs des badges de statut.
@@ -50,10 +50,18 @@ const StudentSpace = () => {
   const handlePay = async (id: number) => {
     if (!token) return;
     try {
-      await payBooking(token, id);
-      refresh();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Erreur de paiement");
+      // On essaye d'abord Stripe Checkout (mode test). Si le back renvoie 503
+      // (clef Stripe absente), on retombe sur le flux mock pour ne pas bloquer
+      // l'eleve en dev.
+      const session = await createCheckoutSession(token, id);
+      window.location.assign(session.url);
+    } catch {
+      try {
+        await payBooking(token, id);
+        refresh();
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Erreur de paiement");
+      }
     }
   };
 
