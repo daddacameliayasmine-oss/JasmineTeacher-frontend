@@ -21,7 +21,16 @@ export const apiFetch = async <T>(path: string, options: Options = {}): Promise<
   });
 
   if (!response.ok) {
-    const message = await response.text();
+    // Le back renvoie { error: "..." } en JSON. On extrait le message
+    // pour afficher quelque chose de lisible dans l'UI (pas le JSON brut).
+    const raw = await response.text();
+    let message = raw;
+    try {
+      const parsed = JSON.parse(raw) as { error?: string };
+      if (parsed?.error) message = parsed.error;
+    } catch {
+      // Reponse non-JSON (rare) : on garde le texte brut.
+    }
     throw new Error(message || `Erreur ${response.status}`);
   }
 
