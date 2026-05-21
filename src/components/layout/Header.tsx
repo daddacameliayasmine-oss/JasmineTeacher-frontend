@@ -31,7 +31,10 @@ const Header = () => {
           <>
             <Link to="/mon-espace">Mon espace</Link>
             {user.role === "admin" && <Link to="/admin">Admin</Link>}
-            <span style={{ color: "var(--color-text-muted)" }}>Bonjour {user.firstname}</span>
+            {/* Le "Bonjour <prenom>" est cliquable et mene a la page Profil. */}
+            <Link to="/profil" style={{ color: "var(--color-text-muted)" }}>
+              Bonjour {user.firstname}
+            </Link>
             <button
               type="button"
               onClick={logout}

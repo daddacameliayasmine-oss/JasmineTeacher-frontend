@@ -8,6 +8,7 @@ import Contact from "./pages/Contact.js";
 import Courses from "./pages/Courses.js";
 import Home from "./pages/Home.js";
 import Login from "./pages/Login.js";
+import Profile from "./pages/Profile.js";
 import Register from "./pages/Register.js";
 import StudentSpace from "./pages/StudentSpace.js";
 
@@ -29,6 +30,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <StudentSpace />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profil"
+            element={
+              <ProtectedRoute>
+                <Profile />
               </ProtectedRoute>
             }
           />
