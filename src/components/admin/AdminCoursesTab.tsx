@@ -60,7 +60,13 @@ const AdminCoursesTab = () => {
   };
 
   return (
-    <div style={{ display: "grid", gap: "var(--space-lg)", gridTemplateColumns: "1fr 1fr" }}>
+    <div
+      style={{
+        display: "grid",
+        gap: "var(--space-lg)",
+        gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+      }}
+    >
       <Card title="Nouveau cours">
         <CourseForm onSubmit={handleCreate} />
       </Card>

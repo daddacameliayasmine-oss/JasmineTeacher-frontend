@@ -26,30 +26,32 @@ const AdminUsersTab = () => {
       {loading && <p>Chargement…</p>}
       {error && <p style={{ color: "salmon" }}>{error}</p>}
       {!loading && users.length === 0 && <p>Aucun élève.</p>}
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
-            <th style={{ textAlign: "left", padding: "var(--space-sm)" }}>Nom</th>
-            <th style={{ textAlign: "left", padding: "var(--space-sm)" }}>Email</th>
-            <th style={{ textAlign: "left", padding: "var(--space-sm)" }}>Rôle</th>
-            <th style={{ textAlign: "left", padding: "var(--space-sm)" }}>Inscrit le</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((u) => (
-            <tr key={u.id} style={{ borderBottom: "1px solid var(--color-border)" }}>
-              <td style={{ padding: "var(--space-sm)" }}>
-                {u.firstname} {u.lastname}
-              </td>
-              <td style={{ padding: "var(--space-sm)" }}>{u.email}</td>
-              <td style={{ padding: "var(--space-sm)" }}>{u.role}</td>
-              <td style={{ padding: "var(--space-sm)" }}>
-                {new Date(u.created_at).toLocaleDateString("fr-FR")}
-              </td>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", minWidth: "500px" }}>
+          <thead>
+            <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
+              <th style={{ textAlign: "left", padding: "var(--space-sm)" }}>Nom</th>
+              <th style={{ textAlign: "left", padding: "var(--space-sm)" }}>Email</th>
+              <th style={{ textAlign: "left", padding: "var(--space-sm)" }}>Rôle</th>
+              <th style={{ textAlign: "left", padding: "var(--space-sm)" }}>Inscrit le</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {users.map((u) => (
+              <tr key={u.id} style={{ borderBottom: "1px solid var(--color-border)" }}>
+                <td style={{ padding: "var(--space-sm)" }}>
+                  {u.firstname} {u.lastname}
+                </td>
+                <td style={{ padding: "var(--space-sm)" }}>{u.email}</td>
+                <td style={{ padding: "var(--space-sm)" }}>{u.role}</td>
+                <td style={{ padding: "var(--space-sm)" }}>
+                  {new Date(u.created_at).toLocaleDateString("fr-FR")}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </Card>
   );
 };

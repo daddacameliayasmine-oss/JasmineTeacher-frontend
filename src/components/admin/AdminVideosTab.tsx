@@ -55,7 +55,13 @@ const AdminVideosTab = () => {
   };
 
   return (
-    <div style={{ display: "grid", gap: "var(--space-lg)", gridTemplateColumns: "1fr 1fr" }}>
+    <div
+      style={{
+        display: "grid",
+        gap: "var(--space-lg)",
+        gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+      }}
+    >
       <Card title="Ajouter une vidéo">
         <form onSubmit={handleAdd} style={{ display: "grid", gap: "var(--space-md)" }}>
           <input
