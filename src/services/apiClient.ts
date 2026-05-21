@@ -1,7 +1,8 @@
-// Petit client fetch centralise. Vite proxy /api vers le backend en dev.
-// Une seule fonction pour gerer la base URL, les headers JSON et les erreurs.
-
-const BASE_URL = "/api";
+// Petit client fetch centralise. Une seule fonction pour gerer la base URL,
+// les headers JSON et les erreurs.
+// En dev : Vite proxy /api vers localhost:3310.
+// En prod : VITE_API_URL pointe sur l'URL Render (ex. https://jasmine-teacher-api.onrender.com/api).
+const BASE_URL = import.meta.env.VITE_API_URL ?? "/api";
 
 type Options = {
   method?: "GET" | "POST" | "PUT" | "DELETE";
