@@ -23,6 +23,24 @@ export const fetchAllUsers = (token: string): Promise<(User & { created_at: stri
   return apiFetch<(User & { created_at: string })[]>("/users", { token });
 };
 
+// Modifie le prenom/nom d'un eleve. Endpoint reserve a l'admin.
+export const updateUser = (
+  token: string,
+  id: number,
+  input: { firstname: string; lastname: string },
+): Promise<User & { created_at: string }> => {
+  return apiFetch<User & { created_at: string }>(`/users/${id}`, {
+    method: "PUT",
+    body: input,
+    token,
+  });
+};
+
+// Supprime un eleve (cascade sur ses reservations).
+export const deleteUser = (token: string, id: number): Promise<void> => {
+  return apiFetch<void>(`/users/${id}`, { method: "DELETE", token });
+};
+
 export const fetchAllBookings = (token: string): Promise<BookingFull[]> => {
   return apiFetch<BookingFull[]>("/bookings/all", { token });
 };
