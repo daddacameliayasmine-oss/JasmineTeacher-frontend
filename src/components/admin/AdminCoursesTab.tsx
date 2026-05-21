@@ -85,7 +85,13 @@ const AdminCoursesTab = () => {
               }}
             >
               <div
-                style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                  gap: "var(--space-sm)",
+                }}
               >
                 <div>
                   <strong>{c.title}</strong>

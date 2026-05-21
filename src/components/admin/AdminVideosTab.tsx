@@ -101,6 +101,8 @@ const AdminVideosTab = () => {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
+                flexWrap: "wrap",
+                gap: "var(--space-sm)",
                 padding: "var(--space-sm)",
                 borderBottom: "1px solid var(--color-border)",
               }}
