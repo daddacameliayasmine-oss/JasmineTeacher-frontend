@@ -119,7 +119,15 @@ const Courses = () => {
       <div style={{ display: "grid", gap: "var(--space-md)", marginTop: "var(--space-lg)" }}>
         {courses.map((course) => (
           <Card key={course.id}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexWrap: "wrap",
+                gap: "var(--space-sm)",
+              }}
+            >
               <div>
                 <h3>{course.title}</h3>
                 <p style={{ color: "var(--color-text-muted)" }}>

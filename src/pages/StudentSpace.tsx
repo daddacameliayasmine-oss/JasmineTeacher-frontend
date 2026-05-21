@@ -87,7 +87,15 @@ const StudentSpace = () => {
       <div style={{ display: "grid", gap: "var(--space-md)" }}>
         {bookings.map((b) => (
           <Card key={b.id}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexWrap: "wrap",
+                gap: "var(--space-sm)",
+              }}
+            >
               <div>
                 <h3>{b.course_title}</h3>
                 <p style={{ color: "var(--color-text-muted)" }}>

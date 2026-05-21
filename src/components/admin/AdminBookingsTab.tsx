@@ -23,34 +23,36 @@ const AdminBookingsTab = () => {
       {loading && <p>Chargement…</p>}
       {error && <p style={{ color: "salmon" }}>{error}</p>}
       {!loading && bookings.length === 0 && <p>Aucune réservation.</p>}
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
-            <th style={{ textAlign: "left", padding: "var(--space-sm)" }}>Élève</th>
-            <th style={{ textAlign: "left", padding: "var(--space-sm)" }}>Cours</th>
-            <th style={{ textAlign: "left", padding: "var(--space-sm)" }}>Date</th>
-            <th style={{ textAlign: "left", padding: "var(--space-sm)" }}>Prix</th>
-            <th style={{ textAlign: "left", padding: "var(--space-sm)" }}>Statut</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bookings.map((b) => (
-            <tr key={b.id} style={{ borderBottom: "1px solid var(--color-border)" }}>
-              <td style={{ padding: "var(--space-sm)" }}>
-                {b.user_firstname} {b.user_lastname}
-                <br />
-                <small style={{ color: "var(--color-text-muted)" }}>{b.user_email}</small>
-              </td>
-              <td style={{ padding: "var(--space-sm)" }}>{b.course_title}</td>
-              <td style={{ padding: "var(--space-sm)" }}>
-                {new Date(b.course_start_at).toLocaleString("fr-FR")}
-              </td>
-              <td style={{ padding: "var(--space-sm)" }}>{b.course_price}€</td>
-              <td style={{ padding: "var(--space-sm)" }}>{b.status}</td>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", minWidth: "600px" }}>
+          <thead>
+            <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
+              <th style={{ textAlign: "left", padding: "var(--space-sm)" }}>Élève</th>
+              <th style={{ textAlign: "left", padding: "var(--space-sm)" }}>Cours</th>
+              <th style={{ textAlign: "left", padding: "var(--space-sm)" }}>Date</th>
+              <th style={{ textAlign: "left", padding: "var(--space-sm)" }}>Prix</th>
+              <th style={{ textAlign: "left", padding: "var(--space-sm)" }}>Statut</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {bookings.map((b) => (
+              <tr key={b.id} style={{ borderBottom: "1px solid var(--color-border)" }}>
+                <td style={{ padding: "var(--space-sm)" }}>
+                  {b.user_firstname} {b.user_lastname}
+                  <br />
+                  <small style={{ color: "var(--color-text-muted)" }}>{b.user_email}</small>
+                </td>
+                <td style={{ padding: "var(--space-sm)" }}>{b.course_title}</td>
+                <td style={{ padding: "var(--space-sm)" }}>
+                  {new Date(b.course_start_at).toLocaleString("fr-FR")}
+                </td>
+                <td style={{ padding: "var(--space-sm)" }}>{b.course_price}€</td>
+                <td style={{ padding: "var(--space-sm)" }}>{b.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </Card>
   );
 };
