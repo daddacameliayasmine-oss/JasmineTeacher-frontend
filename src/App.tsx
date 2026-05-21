@@ -7,6 +7,7 @@ import AdminDashboard from "./pages/AdminDashboard.js";
 import Contact from "./pages/Contact.js";
 import Courses from "./pages/Courses.js";
 import Home from "./pages/Home.js";
+import LegalNotice from "./pages/LegalNotice.js";
 import Login from "./pages/Login.js";
 import Register from "./pages/Register.js";
 import StudentSpace from "./pages/StudentSpace.js";
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/connexion" element={<Login />} />
           <Route path="/inscription" element={<Register />} />
+          <Route path="/mentions-legales" element={<LegalNotice />} />
           <Route
             path="/mon-espace"
             element={
