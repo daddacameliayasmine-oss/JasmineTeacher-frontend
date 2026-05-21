@@ -9,14 +9,16 @@ import CourseForm from "./CourseForm.js";
 
 // Convertit un cours BDD en input pre-rempli pour le formulaire de modification.
 // L'input datetime-local attend le format "YYYY-MM-DDTHH:mm".
+// MySQL renvoie les colonnes DECIMAL en string : on force Number() pour que la
+// validation back (typeof === "number") ne rejette pas la requete avec 400.
 const toInput = (c: Course): CourseInput => ({
   title: c.title,
   description: c.description,
   type: c.type,
-  price: c.price,
-  capacity: c.capacity,
+  price: Number(c.price),
+  capacity: Number(c.capacity),
   start_at: new Date(c.start_at).toISOString().slice(0, 16),
-  duration_minutes: c.duration_minutes,
+  duration_minutes: Number(c.duration_minutes),
   visio_url: c.visio_url,
 });
 
