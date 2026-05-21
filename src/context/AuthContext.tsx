@@ -11,6 +11,9 @@ type AuthContextValue = {
   token: string | null;
   // Met a jour l'etat apres un login / register reussi.
   setSession: (token: string, user: User) => void;
+  // Met a jour le user courant (ex. apres modification du profil)
+  // sans toucher au token.
+  updateUser: (user: User) => void;
   logout: () => void;
   loading: boolean;
 };
@@ -44,6 +47,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(newUser);
   };
 
+  const updateUser = (newUser: User) => {
+    setUser(newUser);
+  };
+
   const logout = () => {
     localStorage.removeItem(TOKEN_KEY);
     setToken(null);
@@ -51,7 +58,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, setSession, logout, loading }}>
+    <AuthContext.Provider value={{ user, token, setSession, updateUser, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
