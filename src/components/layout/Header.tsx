@@ -30,11 +30,11 @@ const Header = () => {
         {user ? (
           <>
             <Link to="/mon-espace">Mon espace</Link>
+            <Link to="/profil">Mon profil</Link>
             {user.role === "admin" && <Link to="/admin">Admin</Link>}
-            {/* Le "Bonjour <prenom>" est cliquable et mene a la page Profil. */}
-            <Link to="/profil" style={{ color: "var(--color-text-muted)" }}>
-              Bonjour {user.firstname}
-            </Link>
+            {/* Greeting en texte simple : pas cliquable, pour eviter d'introduire
+                une affordance que les utilisateurs ne reperent pas. */}
+            <span style={{ color: "var(--color-text-muted)" }}>Bonjour {user.firstname}</span>
             <button
               type="button"
               onClick={logout}
