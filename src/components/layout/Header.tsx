@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.js";
+import UserMenu from "./UserMenu.js";
 
 // En-tete affiche sur toutes les pages.
-// Affiche "Connexion" pour les visiteurs et "Bonjour <prenom> · Deconnexion" pour les connectes.
+// Visiteurs : liens Connexion / S'inscrire.
+// Connectes : dropdown "Mon compte" qui regroupe Mon espace / Mon profil /
+// Admin / Deconnexion pour eviter d'encombrer le menu.
 const Header = () => {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   return (
     <header
@@ -28,26 +31,7 @@ const Header = () => {
         <Link to="/a-propos">À propos</Link>
         <Link to="/contact">Nous contacter</Link>
         {user ? (
-          <>
-            <Link to="/mon-espace">Mon espace</Link>
-            <Link to="/profil">Mon profil</Link>
-            {user.role === "admin" && <Link to="/admin">Admin</Link>}
-            {/* Greeting en texte simple : pas cliquable, pour eviter d'introduire
-                une affordance que les utilisateurs ne reperent pas. */}
-            <span style={{ color: "var(--color-text-muted)" }}>Bonjour {user.firstname}</span>
-            <button
-              type="button"
-              onClick={logout}
-              style={{
-                background: "transparent",
-                border: "none",
-                color: "var(--color-gold)",
-                cursor: "pointer",
-              }}
-            >
-              Déconnexion
-            </button>
-          </>
+          <UserMenu />
         ) : (
           <>
             <Link to="/connexion">Connexion</Link>
