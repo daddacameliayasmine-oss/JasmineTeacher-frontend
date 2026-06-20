@@ -22,7 +22,7 @@ const LegalNotice = () => {
           <strong>Jasmine Teacher</strong> — site personnel proposant des cours de danse orientale
           en ligne.
         </p>
-        <p>Responsable de publication : Jasmine Daddacamelia</p>
+        <p>Responsable de publication : Jasmine</p>
         <p>Adresse email de contact : contact@jasmine-teacher.fr</p>
         <p>Statut : entrepreneur individuel (à compléter avant mise en production réelle).</p>
       </Card>
@@ -44,9 +44,8 @@ const LegalNotice = () => {
       <Card title="Propriété intellectuelle">
         <p>
           L'ensemble du contenu de ce site (textes, images, vidéos, chorégraphies, code source) est
-          la propriété exclusive de Jasmine Daddacamelia, sauf mention contraire. Toute
-          reproduction, représentation ou diffusion sans autorisation écrite préalable est
-          interdite.
+          la propriété exclusive de Jasmine, sauf mention contraire. Toute reproduction,
+          représentation ou diffusion sans autorisation écrite préalable est interdite.
         </p>
       </Card>
 
